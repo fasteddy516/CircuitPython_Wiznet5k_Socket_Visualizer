@@ -203,8 +203,13 @@ while True:
             + f"Connection from {FG['white']}{a[0]}:{a[1]} {FG['green']}accepted"
             + f"{CT}"
         )
-        clients[c._socknum] = (c, a)
-        c.send(bytearray(f"🗲 Socket {c._socknum:02d} 🗲\r\n"))
+        clients[c._socknum] = (c, a, time.monotonic())
+        c.send(
+            bytearray(
+                f"{FG['yellow']}🗲 {FG['green']}Connected to Socket {c._socknum:02d} "
+                + f"{FG['yellow']}🗲\r\n"
+            )
+        )
         out_of_sockets = False
         show_listen_status()
     except TimeoutError:
@@ -237,7 +242,12 @@ while True:
             c[0].close()
             clients[i] = None
         elif heartbeat:
-            c[0].send(bytearray(f"💓 Socket {c[0]._socknum:02d} 💓\r\n"))
+            c[0].send(
+                bytearray(
+                    f"{FG['red']}💓 {FG['white']}Socket {c[0]._socknum:02d} "
+                    + f"[{time.monotonic() - c[2]:0.2f}s] {FG['red']}💓\r\n"
+                )
+            )
 
     heartbeat = False
 
