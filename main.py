@@ -59,7 +59,7 @@ from adafruit_wiznet5k.adafruit_wiznet5k import (
 # CONFIGURATION --------------------------------------------------------------
 DEBUG = False  # set to 'True' to enable driver debugging text
 
-DHCP = False  # set to 'True' to enable DHCP, 'False' to use static settings
+DHCP = True  # set to 'True' to enable DHCP, 'False' to use static settings
 IP = (192, 168, 130, 245)  # only used if DHCP = False
 SUBNET_MASK = (255, 255, 255, 0)  # only used if DHCP = False
 DEFAULT_GATEWAY = (192, 168, 130, 1)  # only used if DHCP = False
@@ -95,21 +95,21 @@ CT = "\033[97m"  # normally '[0m', but using bright white here
 
 # Colorized descriptions for socket state values
 SOCKET_STATE = {
-    "{:02X}".format(0x00): f"{FG['green']}CLOSED     {CT}",
-    "{:02X}".format(0x13): f"{FG['cyan']}INIT       {CT}",
-    "{:02X}".format(0x14): f"{FG['yellow']}LISTENING  {CT}",
-    "{:02X}".format(0x15): f"{FG['blue']}SYN_SENT   {CT}",
-    "{:02X}".format(0x16): f"{FG['blue']}SYN_RECV   {CT}",
+    "{:02X}".format(0x00): f"{FG['green']}CLOSED{CT}",
+    "{:02X}".format(0x13): f"{FG['cyan']}INIT{CT}",
+    "{:02X}".format(0x14): f"{FG['yellow']}LISTENING{CT}",
+    "{:02X}".format(0x15): f"{FG['blue']}SYN_SENT{CT}",
+    "{:02X}".format(0x16): f"{FG['blue']}SYN_RECV{CT}",
     "{:02X}".format(0x17): f"{FG['blue']}ESTABLISHED{CT}",
-    "{:02X}".format(0x18): f"{FG['red']}FIN_WAIT   {CT}",
-    "{:02X}".format(0x1A): f"{FG['red']}CLOSING    {CT}",
-    "{:02X}".format(0x1B): f"{FG['cyan']}TIME_WAIT  {CT}",
-    "{:02X}".format(0x1C): f"{FG['red']}CLOSE_WAIT {CT}",
-    "{:02X}".format(0x1D): f"{FG['cyan']}LAST_ACK   {CT}",
-    "{:02X}".format(0x22): f"{FG['yellow']}UDP        {CT}",
-    "{:02X}".format(0x32): f"{FG['yellow']}IPRAW      {CT}",
-    "{:02X}".format(0x42): f"{FG['yellow']}MACRAW     {CT}",
-    "{:02X}".format(0x5F): f"{FG['yellow']}PPPOE      {CT}",
+    "{:02X}".format(0x18): f"{FG['red']}FIN_WAIT{CT}",
+    "{:02X}".format(0x1A): f"{FG['red']}CLOSING{CT}",
+    "{:02X}".format(0x1B): f"{FG['cyan']}TIME_WAIT{CT}",
+    "{:02X}".format(0x1C): f"{FG['red']}CLOSE_WAIT{CT}",
+    "{:02X}".format(0x1D): f"{FG['cyan']}LAST_ACK{CT}",
+    "{:02X}".format(0x22): f"{FG['yellow']}UDP{CT}",
+    "{:02X}".format(0x32): f"{FG['yellow']}IPRAW{CT}",
+    "{:02X}".format(0x42): f"{FG['yellow']}MACRAW{CT}",
+    "{:02X}".format(0x5F): f"{FG['yellow']}PPPOE{CT}",
 }
 
 # Unicode characters used to represent socket reservation status
@@ -248,6 +248,14 @@ while True:
             state_text = SOCKET_STATE[f"{socket_state:02X}"]
         else:
             state_text = SOCKET_STATE[f"{int(socket_state[0]):02X}"]
+
+        if clients[i] is None:
+            client_text = "         ---         "
+            client_color = f"{FG['black']}"
+        else:
+            client_text = f"{clients[i][1][0]}:{clients[i][1][1]}"
+            client_color = f"{FG['yellow']}"
+
         current_state += (
             f"{FG['white']}┃ "
             + f"S{i}"
@@ -257,12 +265,8 @@ while True:
                 if i > 0
                 else RESERVED_STATE["Unlocked"]
             )
-            + f"{FG['white']} ┃ {state_text}{FG['white']} ┃ "
-            + (
-                "         ---         "
-                if clients[i] is None
-                else f"{FG['yellow']}{clients[i][1][0]}:{clients[i][1][1]}"
-            )
+            + f"{FG['white']} ┃ {state_text:<21}{FG['white']} ┃ "
+            + f"{client_color}{client_text:<21}"
             + f"{FG['white']} ┃\r\n"
         )
     current_state += (
