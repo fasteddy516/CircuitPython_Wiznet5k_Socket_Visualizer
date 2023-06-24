@@ -60,10 +60,10 @@ from adafruit_wiznet5k.adafruit_wiznet5k import (
 DEBUG = False  # set to 'True' to enable driver debugging text
 
 DHCP = True  # set to 'True' to enable DHCP, 'False' to use static settings
-IP = (192, 168, 130, 245)  # only used if DHCP = False
+IP = (192, 168, 1, 200)  # only used if DHCP = False
 SUBNET_MASK = (255, 255, 255, 0)  # only used if DHCP = False
-DEFAULT_GATEWAY = (192, 168, 130, 1)  # only used if DHCP = False
-DNS_SERVER = (192, 168, 130, 1)  # only used if DHCP = False
+DEFAULT_GATEWAY = (192, 168, 1, 1)  # only used if DHCP = False
+DNS_SERVER = (192, 168, 1, 1)  # only used if DHCP = False
 
 SERVER_PORT = 2231  # the TCP port to accept connections on1
 
@@ -192,6 +192,9 @@ out_of_sockets = False
 
 # Main loop
 while True:
+    if DHCP:
+        eth.maintain_dhcp_lease()
+
     # Accept incoming connections (non-blocking).
     try:
         c, a = server.accept()
