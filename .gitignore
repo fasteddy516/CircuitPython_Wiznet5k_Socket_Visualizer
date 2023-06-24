@@ -143,3 +143,4 @@ dmypy.json
 System Volume Information/
 boot_out.txt
 settings.toml
+boot.py
