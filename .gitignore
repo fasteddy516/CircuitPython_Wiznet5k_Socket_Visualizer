@@ -135,3 +135,11 @@ dmypy.json
 .vscode/
 *.code-workspace
 .history/
+
+# Random bits when working directly off of CIRCUITPY drive
+.Trashes
+.fseventsd
+.metadata_never_index
+System Volume Information/
+boot_out.txt
+settings.toml
