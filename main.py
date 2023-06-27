@@ -123,9 +123,9 @@ SOCKET_STATE = {
 
 # Unicode characters used to represent socket reservation status
 RESERVED_STATE = {
-    "False": f"{FG['green']}🟢",
-    "True": f"{FG['red']}🔴",
-    "Unlocked": f"{FG['white']}⚪",
+    "False": f"{FG['green']}●",
+    "True": f"{FG['red']}●",
+    "Unlocked": f"{FG['white']}●",
 }
 
 # Display program header
@@ -262,7 +262,7 @@ while True:
 
     # Update socket status and print visualization if it has changed.
     current_state = (
-        f"\r\n{FG['white']}┏━━━━┳━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓{CT}\r\n"
+        f"\r\n{FG['white']}┏━━━━┳━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓{CT}\r\n"
     )
     for i in range(eth.max_sockets):
         socket_state = eth.socket_status(i)
@@ -292,7 +292,7 @@ while True:
             + f"{FG['white']} ┃\r\n"
         )
     current_state += (
-        f"{FG['white']}┗━━━━┻━━━━┻━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━┛{CT}\r\n"
+        f"{FG['white']}┗━━━━┻━━━┻━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━┛{CT}\r\n"
     )
     if current_state != last_state:
         print(current_state)
