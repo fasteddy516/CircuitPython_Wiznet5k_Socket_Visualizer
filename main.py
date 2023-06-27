@@ -43,18 +43,27 @@ SOFTWARE.
 
 """
 import os
+import sys
 import time
 
-import adafruit_wiznet5k.adafruit_wiznet5k_socket as socket
 import board
 import busio
 import digitalio
-from adafruit_wiznet5k.adafruit_wiznet5k import (
-    SNSR_SOCK_CLOSE_WAIT,
-    SNSR_SOCK_FIN_WAIT,
-    WIZNET5K,
-    __version__,
-)
+
+try:
+    import adafruit_wiznet5k.adafruit_wiznet5k_socket as socket
+    from adafruit_wiznet5k.adafruit_wiznet5k import (
+        SNSR_SOCK_CLOSE_WAIT,
+        SNSR_SOCK_FIN_WAIT,
+        WIZNET5K,
+        __version__,
+    )
+except ImportError:
+    print(
+        "\r\n* The 'adafruit_wiznet5k' driver is required but "
+        "does not appear to be installed."
+    )
+    sys.exit()
 
 # CONFIGURATION --------------------------------------------------------------
 DEBUG = False  # set to 'True' to enable driver debugging text
