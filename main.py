@@ -6,7 +6,7 @@ A tool to help visualize the state of hardware sockets on WIZnet5k chipsets.
 * Author(s): Edward Wright
 
 Developed and tested using CircuitPython 8.1.0 and Adafruit_CircuitPython_Wiznet5k
-driver version 2.5.3 on a Raspberry Pi Pico attached to a WIZnet Ethernet Hat with a
+driver version 3.0.0 on a Raspberry Pi Pico attached to a WIZnet Ethernet Hat with a
 w5100s chipset.  Output verified in the SimplySerial terminal application running in
 PowerShell on Windows 11.
 
@@ -15,7 +15,7 @@ use a terminal application that supports those features.
 
 This tool accesses private variables/properties (socket._socknum, socket._status,
 and WIZNET5K._sockets_reserved) which are not part of the official driver API and may
-be changed in driver versions beyond 2.5.3, which may also break this tool.
+be changed in driver versions beyond 3.0.0, which may also break this tool.
 
 
 MIT License
