@@ -83,7 +83,7 @@ CS_PIN = board.GP17  # Chip Select pin (default = board.GP17)
 SPI_CLOCK_PIN = board.GP18  # SPI clock pin (default = board.GP18)
 SPI_MOSI_PIN = board.GP19  # SPI MOSI pin (default = board.GP19)
 SPI_MISO_PIN = board.GP16  # SPI MISO pin (default = board.GP16)
-RESET_PIN = None  # board.GP20  # Wiznet hadrware reset pin (default = board.GP20)
+RESET_PIN = None  # Wiznet hardware reset pin (default = board.GP20)
 
 # END OF CONFIGURATION -------------------------------------------------------
 
