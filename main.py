@@ -198,6 +198,7 @@ last_state = ""
 stamp = time.monotonic()
 heartbeat = False
 out_of_sockets = False
+first_run = True
 
 # Main loop
 while True:
@@ -297,3 +298,10 @@ while True:
     if current_state != last_state:
         print(current_state)
         last_state = current_state
+        if first_run is True:
+            print(
+                f"(Legend: {FG['green']}🟢 = Available  "
+                + f"{FG['red']}🔴 = Reserved  "
+                + f"{FG['white']}⚪ = Unreservable)\r\n"
+            )
+            first_run = False
