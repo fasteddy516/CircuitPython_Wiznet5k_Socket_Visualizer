@@ -69,7 +69,7 @@ except ImportError:
 DEBUG = False  # set to 'True' to enable driver debugging text
 
 DHCP = True  # set to 'True' to enable DHCP, 'False' to use static settings
-IP = (192, 168, 1, 200)  # only used if DHCP = False
+IP = (192, 168, 1, 100)  # only used if DHCP = False
 SUBNET_MASK = (255, 255, 255, 0)  # only used if DHCP = False
 DEFAULT_GATEWAY = (192, 168, 1, 1)  # only used if DHCP = False
 DNS_SERVER = (192, 168, 1, 1)  # only used if DHCP = False
@@ -83,7 +83,7 @@ CS_PIN = board.GP17  # Chip Select pin (default = board.GP17)
 SPI_CLOCK_PIN = board.GP18  # SPI clock pin (default = board.GP18)
 SPI_MOSI_PIN = board.GP19  # SPI MOSI pin (default = board.GP19)
 SPI_MISO_PIN = board.GP16  # SPI MISO pin (default = board.GP16)
-RESET_PIN = board.GP20  # Wiznet hadrware reset pin (default = board.GP20)
+RESET_PIN = None  # board.GP20  # Wiznet hadrware reset pin (default = board.GP20)
 
 # END OF CONFIGURATION -------------------------------------------------------
 
@@ -123,9 +123,9 @@ SOCKET_STATE = {
 
 # Unicode characters used to represent socket reservation status
 RESERVED_STATE = {
-    "False": f"{FG['green']}●",
-    "True": f"{FG['red']}●",
-    "Unlocked": f"{FG['white']}●",
+    "False": f"{FG['green']}🟢",
+    "True": f"{FG['red']}🔴",
+    "Unlocked": f"{FG['white']}⚪",
 }
 
 # Display program header
@@ -262,7 +262,7 @@ while True:
 
     # Update socket status and print visualization if it has changed.
     current_state = (
-        f"\r\n{FG['white']}┏━━━━┳━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓{CT}\r\n"
+        f"\r\n{FG['white']}┏━━━━┳━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓{CT}\r\n"
     )
     for i in range(eth.max_sockets):
         socket_state = eth.socket_status(i)
@@ -292,7 +292,7 @@ while True:
             + f"{FG['white']} ┃\r\n"
         )
     current_state += (
-        f"{FG['white']}┗━━━━┻━━━┻━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━┛{CT}\r\n"
+        f"{FG['white']}┗━━━━┻━━━━┻━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━┛{CT}\r\n"
     )
     if current_state != last_state:
         print(current_state)
